@@ -5,15 +5,11 @@ const base64 =
 const encode = async (fileName) => {
   try {
     let str = await fs.readFile(fileName);
-    console.log(str);
-    str.forEach((item) => console.log(item));
-    // str = str.toString();
+
     let binary = [];
 
     str.forEach((el) => binary.push(el.toString(2).padStart(8, 0)));
     str = binary.join("");
-    // console.log(binary)
-    // str = str.map((letter) => letter.toString(2).padStart(8, 0)).join("");
 
     let sixBits = [],
       six = "";
@@ -28,7 +24,7 @@ const encode = async (fileName) => {
     }
 
     const incompleteBits = str.slice(parseInt(str.length / 6) * 6);
-    // console.log(incompleteBits.length);
+    
     let numberOfEquals = 0;
     if (incompleteBits.length > 0) {
       numberOfEquals = (6 - incompleteBits.length) / 2;
@@ -44,7 +40,7 @@ const encode = async (fileName) => {
       numberOfEquals--;
     }
     await fs.writeFile("output.txt", answer);
-    // console.log(answer);
+
   } catch (error) {
     console.log(error);
   }

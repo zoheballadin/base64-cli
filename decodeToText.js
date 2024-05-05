@@ -7,7 +7,6 @@ const decodeToText = async (fileName) => {
     const str = await fs.readFile(fileName, "utf-8");
 
     let letters = str.split("");
-    console.log(letters);
     let numberOfEquals = letters.reduce(
       (acc, letter) => (letter == "=" ? acc + 1 : acc),
       0
@@ -18,6 +17,7 @@ const decodeToText = async (fileName) => {
       .map((decimalValue) => decimalValue.toString(2).padStart(6, 0));
 
     letters = letters.join("");
+    
     while (numberOfEquals > 0) {
       letters += "00";
       numberOfEquals--;
@@ -33,11 +33,10 @@ const decodeToText = async (fileName) => {
         eight = "";
       }
     }
-    let answer = eightBits
+    const answer = eightBits
       .map((binary) => parseInt(binary, 2))
       .map((decimal) => String.fromCharCode(decimal))
       .join("");
-    // console.log(answer);
 
     await fs.writeFile("output.txt", answer);
   } catch (error) {

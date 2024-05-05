@@ -18,7 +18,7 @@ let choice;
 const cli = async () => {
   printMenu();
   choice = readlineSync.questionInt("Enter your choice: ");
-  const fileName = readlineSync.question("enter file name");
+  const fileName = readlineSync.question("enter file name: ");
   switch (choice) {
     case 0:
       console.log("exiting..");

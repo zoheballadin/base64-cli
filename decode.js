@@ -4,9 +4,7 @@ const base64 =
 
 const decode = async (fileName) => {
   try {
-    let str = await fs.readFile(fileName, "utf-8");
-    // console.log(str.slice(0,10))
-    // str = str.toString();
+    const str = await fs.readFile(fileName, "utf-8");
 
     let letters = str.split("");
     let numberOfEquals = letters.reduce(
@@ -24,8 +22,9 @@ const decode = async (fileName) => {
       numberOfEquals--;
     }
 
-    let eightBits = [];
-    let eight = "";
+    let eightBits = [],
+      eight = "";
+
     for (let i = 0; i < letters.length; i++) {
       eight += letters[i];
 
@@ -34,11 +33,8 @@ const decode = async (fileName) => {
         eight = "";
       }
     }
-    let answer = eightBits.map((binary) => parseInt(binary, 2));
-    // .map((decimal) => String.fromCharCode(decimal))
-    // .join("");
-    // console.log(answer);
-    let buffer = Buffer.from(answer, "base64");
+    const answer = eightBits.map((binary) => parseInt(binary, 2));
+    const buffer = Buffer.from(answer, "base64");
     await fs.writeFile("output.png", buffer);
   } catch (error) {
     console.log(error);
